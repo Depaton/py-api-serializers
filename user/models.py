@@ -23,7 +23,11 @@ class Actor(models.Model):
 
 class CinemaHall(models.Model):
     name = models.CharField(max_length=255)
-    capacity = models.IntegerField()
+    rows = models.IntegerField()
+    seats_in_row = models.IntegerField()
+
+    def capacity(self):
+        return self.rows * self.seats_in_row
 
     def __str__(self):
         return self.name
@@ -47,6 +51,7 @@ class MovieSession(models.Model):
 
     def __str__(self):
         return f"{self.movie.title} at {self.show_time} in {self.cinema_hall.name}"
+
 
 class User(AbstractUser):
     pass
